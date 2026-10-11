@@ -1,0 +1,131 @@
+@startuml
+
+skinparam linetype ortho
+skinparam roundCorner 15
+skinparam nodesep 60
+skinparam ranksep 60
+
+package Shapes {
+
+	interface IShape {
+		+GetArea(): double
+		+GetPerimeter(): double
+		+GetFillColor(): uint32_t
+		+GetOutlineColor(): uint32_t
+		+Draw(ICanvas)
+	}
+
+	interface ICircle {
+		+GetCenter(): CPoint
+		+GetRadius(): double
+	}
+
+	interface IRectangle {
+		+GetLeftTop(): CPoint
+		+GetRightBottom(): CPoint
+		+GetWidth(): double
+		+GetHeight(): double
+	}
+
+	interface ITriangle {
+		+GetVertex1() : CPoint
+		+GetVertex2() : CPoint
+		+GetVertex3() : CPoint
+	}
+
+	package Shapes::Adapters {
+
+		class CCircleAdapter {
+			+CCircleAdapter(CPoint pos, double r, uint32_t fill, uint32_t outline)
+			__ IShape __
+			+GetArea(): double
+			+GetPerimeter(): double
+			+GetFillColor(): uint32_t
+			+GetOutlineColor(): uint32_t
+			+Draw(ICanvas)
+			__ ICircle __
+			+GetCenter(): CPoint
+			+GetRadius(): double
+			__ private data __
+			-m_shape : sf::CircleShape
+		}
+
+		class CRectangleAdapter {
+			+CRectangleAdapter(CPoint pos, double width, double height, uint32_t fill, uint32_t outline)
+			__ IShape __
+			+GetArea(): double
+			+GetPerimeter(): double
+			+GetFillColor(): uint32_t
+			+GetOutlineColor(): uint32_t
+			+Draw(ICanvas)
+			__ IRectangle __
+			+GetLeftTop(): CPoint
+			+GetRightBottom(): CPoint
+			+GetWidth(): double
+			+GetHeight(): double
+			__ private data __
+			-m_shape : sf::RectangleShape
+		}
+
+		class CConvexAdapter {
+			+CConvexAdapter(CPoint v1, CPoint v2, CPoint v3, uint32_t fill, uint32_t outline)
+			__ IShape __
+			+GetArea(): double
+			+GetPerimeter(): double
+			+GetFillColor(): uint32_t
+			+GetOutlineColor(): uint32_t
+			+Draw(ICanvas)
+			__ ITriangle __
+			+GetVertex1() : CPoint
+			+GetVertex2() : CPoint
+			+GetVertex3() : CPoint
+			__ private data __
+			-m_shape : sf::ConvexShape
+		}
+
+	}
+	
+}
+
+package Render {
+
+	interface ICanvas {
+		+DrawPolygon(std::array<Shapes::CPoint, 3>& vertex)
+	}
+
+	package Render::Adapters {
+
+		class CRenderWindowAdapter {
+			+CRenderWindowAdapter(uint32_t width, uint32_t height, std::string& title)
+			__ ICanvas __
+			+DrawPolygon(std::array<Shapes::CPoint, 3>& vertex)
+			__ private data __
+			-m_polygon : sf::ConvexShape
+		}
+
+	}
+	
+}
+
+package sf {
+	class CircleShape
+	class RectangleShape
+	class ConvexShape
+	class RenderWindow
+}
+
+IShape <|-- ICircle
+IShape <|-- IRectangle
+IShape <|-- ITriangle
+ICanvas <|-- CRenderWindowAdapter
+
+ICircle <|-- CCircleAdapter
+IRectangle <|-- CRectangleAdapter
+ITriangle <|-- CConvexAdapter
+
+CCircleAdapter *-- CircleShape
+CRectangleAdapter *-- RectangleShape
+CConvexAdapter *-- ConvexShape
+RenderWindow <|-- CRenderWindowAdapter
+
+@enduml

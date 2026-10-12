@@ -6,10 +6,15 @@ Main::Main(std::istream& in, std::ostream& out)
 void Main::Run()
 {
 	std::vector<std::unique_ptr<Shapes::IShape>> shapes;
-	Render::Adapters::CRenderWindowAdapter window(800, 600, "Visualisation"); 
+	Render::Adapters::CRenderWindowAdapter window(800, 600, Constants::WINDOW_TITLE); 
 	CShapeParser parser;
 
 	parser.Parse(m_in, shapes);
+
+	for (auto& shape : shapes)
+	{
+		m_out << shape->ToString() << '\n';
+	}
 
 	while (window.isOpen())
 	{

@@ -2,11 +2,6 @@
 
 using namespace Shapes::Adapters;
 
-namespace Errors
-{
-	inline constexpr auto INVALID_CANVAS = "CRectangleAdapter can be used only with CRenderWindowAdapter";
-}
-
 CRectangleAdapter::CRectangleAdapter(CPoint pos, float width, float height, uint32_t fill, uint32_t outline)
 	: m_shape({ width, height })
 {
@@ -43,7 +38,7 @@ void CRectangleAdapter::Draw(Render::ICanvas* canvas)
 	{
 		window->draw(m_shape);
 	}
-	else throw std::invalid_argument(Errors::INVALID_CANVAS);
+	else throw std::invalid_argument(Errors::Rectangle::INVALID_CANVAS);
 }
 
 Shapes::CPoint CRectangleAdapter::GetLeftTop() const
@@ -71,5 +66,5 @@ double CRectangleAdapter::GetHeight() const
 
 std::string CRectangleAdapter::ToString() const
 {
-  return "Rectangle"; // TODO: implement
+  return std::format(Constants::Rectangle::FORMAT, GetPerimeter(), GetArea());
 }

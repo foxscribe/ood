@@ -4,6 +4,17 @@
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <format>
+
+namespace Errors::Circle
+{
+	inline constexpr auto INVALID_CANVAS = "CCircleAdapter can be used only with CRenderWindowAdapter";
+}
+
+namespace Constants::Circle
+{
+	inline constexpr auto FORMAT = "CIRCLE: P={:.2f} S={:.2f}";
+}
 
 namespace Shapes::Adapters
 {

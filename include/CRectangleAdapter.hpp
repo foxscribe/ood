@@ -5,6 +5,16 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+namespace Errors::Rectangle
+{
+	inline constexpr auto INVALID_CANVAS = "CRectangleAdapter can be used only with CRenderWindowAdapter";
+	}
+
+namespace Constants::Rectangle
+{
+	inline constexpr auto FORMAT = "RECTANGLE: P={:.2f} S={:.2f}";
+}
+
 namespace Shapes::Adapters
 {
   

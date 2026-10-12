@@ -2,11 +2,6 @@
 
 using namespace Shapes::Adapters;
 
-namespace Errors
-{
-	inline constexpr auto INVALID_CANVAS = "CCircleAdapter can be used only with CRenderWindowAdapter";
-}
-
 CCircleAdapter::CCircleAdapter(CPoint pos, double r, uint32_t fill, uint32_t outline)
 	: m_shape(r)
 {
@@ -43,7 +38,7 @@ void CCircleAdapter::Draw(Render::ICanvas* canvas)
 	{
 		window->draw(m_shape);
 	}
-	else throw std::invalid_argument(Errors::INVALID_CANVAS);
+	else throw std::invalid_argument(Errors::Circle::INVALID_CANVAS);
 }
 
 Shapes::CPoint CCircleAdapter::GetCenter() const
@@ -60,5 +55,5 @@ double CCircleAdapter::GetRadius() const
 
 std::string CCircleAdapter::ToString() const
 {
-	return "Circle"; // TODO: implement
+	return std::format(Constants::Circle::FORMAT, GetPerimeter(), GetArea());
 }

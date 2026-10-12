@@ -13,24 +13,6 @@
 #include <unordered_map>
 #include <vector>
 
-namespace ShapeNames
-{
-	inline constexpr auto CIRCLE = "circle";
-	inline constexpr auto RECTANGLE = "rectangle";
-	inline constexpr auto TRIANGLE = "triangle";
-}
-
-namespace Errors
-{
-    inline constexpr auto UNKNOWN_SHAPE = "unknown shape type";
-    inline constexpr auto INVALID_PARAMETERS = "invalid parameters";
-}
-
-namespace
-{
-    inline constexpr auto DEFAULT_COLOR = 0x00FF00FF;
-}
-
 void CShapeParser::Parse(std::istream& input, VectorOfShapes& shapes)
 {
     using ParseFunc = void(*)(std::istream&, VectorOfShapes& shapes);
@@ -60,7 +42,7 @@ void CShapeParser::Parse(std::istream& input, VectorOfShapes& shapes)
         }
         else
         {
-            throw std::invalid_argument(Errors::UNKNOWN_SHAPE);
+					throw std::invalid_argument(Errors::Parser::UNKNOWN_SHAPE);
         }
 	}
 }
@@ -69,7 +51,7 @@ bool CShapeParser::CheckStream(const std::istream& input)
 {
 	if (input.fail())
 	{
-		throw std::invalid_argument(Errors::INVALID_PARAMETERS);
+		throw std::invalid_argument(Errors::Parser::INVALID_PARAMETERS);
 		return false;
 	}
 
@@ -80,8 +62,8 @@ void CShapeParser::ParseCircle(std::istream& input, VectorOfShapes& shapes)
 {
 	Shapes::CPoint center;
 	double radius;
-	uint32_t outlineColor = DEFAULT_COLOR;
-	uint32_t fillColor = DEFAULT_COLOR;
+	uint32_t outlineColor = Constants::DEFAULT_COLOR;
+	uint32_t fillColor = Constants::DEFAULT_COLOR;
 
 	if (!(input >> center.x >> center.y >> radius))
 	{
@@ -108,8 +90,8 @@ void CShapeParser::ParseRectangle(std::istream& input, VectorOfShapes& shapes)
 {
 	Shapes::CPoint startPoint;
 	double width, height;
-	uint32_t outlineColor = DEFAULT_COLOR;
-	uint32_t fillColor = DEFAULT_COLOR;
+	uint32_t outlineColor = Constants::DEFAULT_COLOR;
+	uint32_t fillColor = Constants::DEFAULT_COLOR;
 
 	if (!(input >> startPoint.x >> startPoint.y >> width >> height))
 	{
@@ -137,8 +119,8 @@ void CShapeParser::ParseTriangle(std::istream& input, VectorOfShapes& shapes)
 	Shapes::CPoint point1;
 	Shapes::CPoint point2;
 	Shapes::CPoint point3;
-	uint32_t outlineColor = DEFAULT_COLOR;
-	uint32_t fillColor = DEFAULT_COLOR;
+	uint32_t outlineColor = Constants::DEFAULT_COLOR;
+	uint32_t fillColor = Constants::DEFAULT_COLOR;
 
 	if (!(input >> point1.x >> point1.y >> point2.x >> point2.y >> point3.x >> point3.y))
 	{

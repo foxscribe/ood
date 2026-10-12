@@ -6,6 +6,16 @@
 #include <SFML/Graphics/ConvexShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+namespace Errors::Convex
+{
+	inline constexpr auto INVALID_CANVAS = "CConvexAdapter can be used only with CRenderWindowAdapter";
+}
+
+namespace Constants::Convex
+{
+	inline constexpr auto FORMAT = "TRIANGLE: P={:.2f} S={:.2f}";
+}
+
 namespace Shapes::Adapters
 {
   

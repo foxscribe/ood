@@ -2,11 +2,6 @@
 
 using namespace Shapes::Adapters;
 
-namespace Errors
-{
-	inline constexpr auto INVALID_CANVAS = "CConvexAdapter can be used only with CRenderWindowAdapter";
-}
-
 CConvexAdapter::CConvexAdapter(CPoint v1, CPoint v2, CPoint v3, uint32_t fill, uint32_t outline)
 	: m_shape(3)
 {
@@ -57,7 +52,7 @@ void CConvexAdapter::Draw(Render::ICanvas* canvas)
 	{
 		window->draw(m_shape);
 	}
-	else throw std::invalid_argument(Errors::INVALID_CANVAS);
+	else throw std::invalid_argument(Errors::Convex::INVALID_CANVAS);
 }
 
 Shapes::CPoint CConvexAdapter::GetVertex1() const
@@ -77,5 +72,5 @@ Shapes::CPoint CConvexAdapter::GetVertex3() const
   
 std::string CConvexAdapter::ToString() const
 {
-	return "Convex"; // TODO: implement
+	return std::format(Constants::Convex::FORMAT, GetPerimeter(), GetArea());
 }

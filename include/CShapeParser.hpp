@@ -6,6 +6,24 @@
 #include <memory>
 #include <vector>
 
+namespace ShapeNames
+{
+	inline constexpr auto CIRCLE = "circle";
+	inline constexpr auto RECTANGLE = "rectangle";
+	inline constexpr auto TRIANGLE = "triangle";
+}
+
+namespace Errors::Parser
+{
+    inline constexpr auto UNKNOWN_SHAPE = "unknown shape type";
+    inline constexpr auto INVALID_PARAMETERS = "invalid parameters";
+}
+
+namespace Constants
+{
+    inline constexpr auto DEFAULT_COLOR = 0x00FF00FF;
+}
+
 class CShapeParser
 {
 	using VectorOfShapes = std::vector<std::unique_ptr<Shapes::IShape>>;

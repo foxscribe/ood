@@ -7,6 +7,12 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
+namespace Constants
+{
+	inline constexpr auto WINDOW_TITLE = "Visualisation";
+}
+
+
 class Main
 {
 public:

@@ -15,6 +15,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
+find_package(OpenGL REQUIRED)
+
 enable_testing()
 
 set(sources
@@ -39,5 +41,5 @@ gtest_discover_tests(run_tests)
 
 add_executable(main ${sources} main.cpp)
 
-target_link_libraries(run_tests sfml-graphics sfml-window sfml-system)
-target_link_libraries(main sfml-graphics sfml-window sfml-system)
+target_link_libraries(run_tests sfml-graphics sfml-window sfml-system OpenGL::GL)
+target_link_libraries(main sfml-graphics sfml-window sfml-system OpenGL::GL)

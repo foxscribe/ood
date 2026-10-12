@@ -50,7 +50,12 @@ void CConvexAdapter::Draw(Render::ICanvas* canvas)
 {
 	if (sf::RenderWindow* window = dynamic_cast<sf::RenderWindow*>(canvas); window != nullptr)
 	{
+		if (GetArea() == 0)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
 		window->draw(m_shape);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else throw std::invalid_argument(Errors::Convex::INVALID_CANVAS);
 }

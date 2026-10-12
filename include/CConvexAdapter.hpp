@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics/ConvexShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <GL/gl.h>
 
 namespace Errors::Convex
 {
